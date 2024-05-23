@@ -1,0 +1,68 @@
+<html>
+<head>
+  <script type='module'>
+    // init firebase
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+    import { getDatabase, ref, child, onValue, set } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js';
+    const config = { databaseURL: 'https://fir-6c74e-default-rtdb.asia-southeast1.firebasedatabase.app/' };
+    initializeApp(config);
+    const dbRef = ref(getDatabase());
+    // event-handler methods
+    window.page_Load = function page_Load() {
+      onValue(child(dbRef, 'LEDs'), (snapshot) => {
+        snapshot.forEach((child) => {
+          if (child.key === 'R') {
+            document.getElementById('lblRed').innerText = child.val();
+          }
+          if (child.key === 'G') {
+            document.getElementById('lblGreen').innerText = child.val();
+          }
+          if (child.key === 'B') {
+            document.getElementById('lblBlue').innerText = child.val();
+          }
+        });
+      });
+    }
+    window.btnRed_Click = function btnRed_Click() {
+      const r = 1 - parseInt(document.getElementById('lblRed').innerText);
+      const g = parseInt(document.getElementById('lblGreen').innerText);
+      const b = parseInt(document.getElementById('lblBlue').innerText);
+      set(child(dbRef, 'LEDs'), { R: r, G: g, B: b });
+    }
+    window.btnGreen_Click = function btnGreen_Click() {
+      const r = parseInt(document.getElementById('lblRed').innerText);
+      const g = 1 - parseInt(document.getElementById('lblGreen').innerText);
+      const b = parseInt(document.getElementById('lblBlue').innerText);
+      set(child(dbRef, 'LEDs'), { R: r, G: g, B: b });
+    }
+    window.btnBlue_Click = function btnBlue_Click() {
+      const r = parseInt(document.getElementById('lblRed').innerText);
+      const g = parseInt(document.getElementById('lblGreen').innerText);
+      const b = 1 - parseInt(document.getElementById('lblBlue').innerText);
+      set(child(dbRef, 'LEDs'), { R: r, G: g, B: b });
+    }
+  </script>
+</head>
+<body onload='page_Load()'>
+  <table cellspacing='10'>
+    <tr>
+      <td colspan='3'>LEDs</td>
+    </tr>
+    <tr>
+      <td>+ Red:</td>
+      <td><span id='lblRed'></span></td>
+      <td><button onclick='btnRed_Click()'>ON / OFF</button></td>
+    </tr>
+    <tr>
+      <td>+ Green:</td>
+      <td><span id='lblGreen'></span></td>
+      <td><button onclick='btnGreen_Click()'>ON / OFF</button></td>
+    </tr>
+    <tr>
+      <td>+ Blue:</td>
+      <td><span id='lblBlue'></span></td>
+      <td><button onclick='btnBlue_Click()'>ON / OFF</button></td>
+    </tr>
+  </table>
+</body>
+</html>
