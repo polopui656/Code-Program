@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <title>jQuery Demo</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+</head>
+<body>
+  <p id="myParagraph">This is a paragraph.</p>
+
+  <script>
+    $(document).ready(function(){
+      $("#myParagraph").text("This paragraph has been updated!");
+      $("#myParagraph").addClass("highlight");
+    });
+  </script>
+   <script>
+    $(document).ready(function(){
+      $("#myParagraph").click(function(){
+        alert("You clicked the button!");
+        $("#myParagraph").fadeIn(1000).fadeOut(1000);
+      });
+    });
+   /* $(document).ready(function(){
+      $("#myParagraph").fadeIn(1000).fadeOut(1000);
+    });*/
+  </script>
+</body>
+</html>

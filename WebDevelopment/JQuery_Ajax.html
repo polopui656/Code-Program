@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AJAX Demo</title>
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#get-data-button").click(function() {
+        $.ajax({
+          url: "C:\Users\HP\OneDrive\Documents\Code Program\WebDevelopment\data.txt", // Replace "data.txt" with your actual data source
+          dataType: "text",
+          success: function(data) {
+            $("#data-container").html(data);
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            console.error("Error:", textStatus, errorThrown);
+            $("#data-container").html("Error retrieving data");
+          }
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+  <button id="get-data-button">Get Data</button>
+  <br>
+  <div id="data-container"></div>
+</body>
+</html>
